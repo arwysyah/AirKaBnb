@@ -1,114 +1,162 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import SplashScreen from './src/Screens/SplashScreen';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import Trip from './src/Screens/Trip';
+import Saved from './src/Screens/Saved';
+import Profile from './src/Screens/Profile';
+import Inbox from './src/Screens/Inbox';
+import Explore from './src/Screens/Explore';
+import Login from './src/Screens/Login';
+import Register from './src/Screens/Register';
+import {Icon} from 'native-base';
+import {Image} from 'react-native';
+import logoAirbnb from './src/Assets/airbnb.jpg';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+const AppStack = createStackNavigator({
+  Explore: {
+    screen: Explore,
+    navigationOptions: {
+      header: null,
+    },
   },
-  engine: {
-    position: 'absolute',
-    right: 0,
+  Inbox: {
+    screen: Inbox,
+    navigationOptions: {
+      header: null,
+    },
   },
-  body: {
-    backgroundColor: Colors.white,
+  Profile: {
+    screen: Profile,
+    navigationOptions: {
+      header: null,
+    },
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  Saved: {
+    screen: Saved,
+    navigationOptions: {
+      header: null,
+    },
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  Trip: {
+    screen: Trip,
+    navigationOptions: {
+      header: null,
+    },
   },
 });
 
-export default App;
+const AuthStack = createStackNavigator({
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null,
+      tabBarVisible: false,
+      header: null,
+    },
+  },
+  Register: {
+    screen: Register,
+    navigationOptions: {
+      tabBarVisible: false,
+      header: null,
+    },
+  },
+});
+const BottomNavigator = createBottomTabNavigator(
+  {
+    Explore: {
+      screen: AppStack,
+      navigationOptions: {
+        tabBarLabel: 'Explore',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            type="EvilIcons"
+            name="search"
+            style={{color: tintColor, fontSize: 30}}
+          />
+        ),
+      },
+    },
+    Saved: {
+      screen: Saved,
+      navigationOptions: {
+        tabBarLabel: 'Saved',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            type="EvilIcons"
+            name="heart"
+            style={{color: tintColor, fontSize: 30}}
+          />
+        ),
+      },
+    },
+    Trip: {
+      screen: Trip,
+      navigationOptions: {
+        tabBarLabel: 'Trip',
+        tabBarIcon: ({tintColor}) => (
+          <Image
+            source={logoAirbnb}
+            style={{height: 24, width: 24, tintColor: tintColor}}
+          />
+        ),
+      },
+    },
+    Inbox: {
+      screen: Inbox,
+      navigationOptions: {
+        tabBarLabel: 'Inbox',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            type="Feather"
+            name="message-square"
+            style={{color: tintColor, fontSize: 23}}
+          />
+        ),
+      },
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        tabBarLabel: 'Profile',
+        tabBarIcon: ({tintColor}) => (
+          <Icon
+            type="SimpleLineIcons"
+            name="user"
+            style={{color: tintColor, fontSize: 23}}
+          />
+        ),
+      },
+    },
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: '#757575',
+      style: {
+        backgroundColor: 'white',
+        borderTopWidth: 0,
+        shadowOffset: {width: 5, height: 3},
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        elevation: 5,
+      },
+    },
+  },
+);
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      // Splashscreen: SplashScreen,
+      // AuthLoading: Authloadingscreen,
+      App: BottomNavigator,
+      Auth: AuthStack,
+    },
+    {
+      initialRouteName: 'App',
+      headerMode: 'none',
+    },
+  ),
+);
