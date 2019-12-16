@@ -14,31 +14,33 @@ export default class Profile extends React.Component {
   render() {
     return (
       <>
-        <View
-          style={{
-            backgroundColor: 'white',
-            height: 120,
-            borderBottomWidth: 1,
-            borderBottomColor: '#dddddd',
-          }}>
+        <ScrollView>
           <View
             style={{
-              flexDirection: 'row',
-              padding: 10,
               backgroundColor: 'white',
-              marginHorizontal: 20,
-              shadowOffset: {width: 0, height: 0},
-              shadowColor: 'black',
-              shadowOpacity: 0.2,
+              height: 120,
+              borderBottomWidth: 1,
+              borderBottomColor: '#dddddd',
             }}>
-            <Image
-              source={require('../Assets/user.png')}
-              style={styles.profile}
-            />
-            <Text style={styles.nameuser}>Wahyu</Text>
-            <Text>Test</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                padding: 10,
+                backgroundColor: 'white',
+                marginHorizontal: 20,
+                shadowOffset: {width: 0, height: 0},
+                shadowColor: 'black',
+                shadowOpacity: 0.2,
+              }}>
+              <Image
+                source={require('../Assets/user.png')}
+                style={styles.profile}
+              />
+              <Text style={styles.nameuser}>Wahyu</Text>
+              <Text>Test</Text>
+            </View>
           </View>
-        </View>
+        </ScrollView>
       </>
     );
   }
