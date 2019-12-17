@@ -89,13 +89,17 @@ export default class Profile extends React.Component {
             <Text style={{color: '#c4c4c4', marginBottom: 10}}>
               ACCOUNT SETTINGS
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('PersonalInformation')
+              }>
               <View style={styles.menuinner}>
                 <Text style={styles.innercontent}>Personal Information</Text>
                 <Icon type="SimpleLineIcons" name="user" style={styles.icon} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Reservation')}>
               <View style={styles.menuinner}>
                 <Text style={styles.innercontent}>Reservation</Text>
                 <Icon
@@ -105,7 +109,10 @@ export default class Profile extends React.Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('Paymentandpayout')
+              }>
               <View style={styles.menuinner}>
                 <Text style={styles.innercontent}>Payment And Payout</Text>
                 <Icon

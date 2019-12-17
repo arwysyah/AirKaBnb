@@ -13,7 +13,9 @@ import Register from './src/Screens/Register';
 import {Icon} from 'native-base';
 import {Image} from 'react-native';
 import logoAirbnb from './src/Assets/airbnb.jpg';
-
+import PersonalInformation from './src/Screens/PersonalInformation';
+import Reservation from './src/Screens/Reservation';
+import Paymentandpayout from './src/Screens/Paymentandpayout';
 const AppStack = createStackNavigator({
   Explore: {
     screen: Explore,
@@ -33,8 +35,27 @@ const AppStack = createStackNavigator({
       header: null,
     },
   },
+  PersonalInformation: {
+    screen: PersonalInformation,
+    navigationOptions: {
+      header: null,
+      tabBarVisible: false,
+    },
+  },
   Saved: {
     screen: Saved,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Reservation: {
+    screen: Reservation,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Paymentandpayout: {
+    screen: Paymentandpayout,
     navigationOptions: {
       header: null,
     },
@@ -95,7 +116,7 @@ const BottomNavigator = createBottomTabNavigator(
     Trip: {
       screen: Trip,
       navigationOptions: {
-        tabBarLabel: 'Trip',
+        tabBarLabel: 'Trips',
         tabBarIcon: ({tintColor}) => (
           <Image
             source={logoAirbnb}
@@ -146,17 +167,8 @@ const BottomNavigator = createBottomTabNavigator(
     },
   },
 );
-export default createAppContainer(
-  createSwitchNavigator(
-    {
-      // Splashscreen: SplashScreen,
-      // AuthLoading: Authloadingscreen,
-      App: BottomNavigator,
-      Auth: AuthStack,
-    },
-    {
-      initialRouteName: 'App',
-      headerMode: 'none',
-    },
-  ),
-);
+const switchScreen = createSwitchNavigator({
+  App: BottomNavigator,
+  Auth: AuthStack,
+});
+export default createAppContainer(switchScreen);
