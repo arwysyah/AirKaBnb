@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {View} from 'react-native'
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import SplashScreen from './src/Screens/SplashScreen';
@@ -13,13 +14,47 @@ import Register from './src/Screens/Register';
 import {Icon} from 'native-base';
 import {Image} from 'react-native';
 import logoAirbnb from './src/Assets/airbnb.jpg';
+import Detail from './src/Screens/Detail'
+import DetailStay from './src/Screens/DetailStay'
+import Maps from './src/Screens/Maps'
+
+
 
 const AppStack = createStackNavigator({
+
+// Register: {
+//   screen: Register,
+//   navigationOptions: {
+//     tabBarVisible: false,
+//     header: null,
+//   },
+// },
+//   Login: {
+//     screen: Login,
+//     navigationOptions: {
+//       header: null,
+//       tabBarVisible: false,
+//       header: null,
+//     },
+//     },
+  
   Explore: {
     screen: Explore,
     navigationOptions: {
       header: null,
     },
+  },
+  Detail:{
+    screen:Detail,
+    navigationOptions:{
+      header:null
+    }
+  },
+    DetailStay:{
+      screen:DetailStay,
+      navigationOptions:{
+        header:null
+      }
   },
   Inbox: {
     screen: Inbox,
@@ -142,6 +177,8 @@ const BottomNavigator = createBottomTabNavigator(
         shadowColor: 'black',
         shadowOpacity: 0.5,
         elevation: 5,
+        borderTopColor:'#ccc5ba',
+        borderTopWidth:1
       },
     },
   },
@@ -149,14 +186,25 @@ const BottomNavigator = createBottomTabNavigator(
 export default createAppContainer(
   createSwitchNavigator(
     {
-      // Splashscreen: SplashScreen,
+      Splashscreen: SplashScreen,
       // AuthLoading: Authloadingscreen,
       App: BottomNavigator,
       Auth: AuthStack,
     },
     {
-      initialRouteName: 'App',
+      initialRouteName: 'Splashscreen',
       headerMode: 'none',
     },
   ),
 );
+
+// class App extends React.Component{
+//   render(){
+//     return(
+//       <View>
+//         <Login/>
+//       </View>
+//     )
+//   }
+// }
+// export default App
