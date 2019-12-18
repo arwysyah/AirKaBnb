@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {View} from 'react-native'
+
+import {createAppContainer,createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import SplashScreen from './src/Screens/SplashScreen';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Trip from './src/Screens/Trip';
@@ -17,28 +18,32 @@ import logoAirbnb from './src/Assets/airbnb.jpg';
 import Detail from './src/Screens/Detail'
 import DetailStay from './src/Screens/DetailStay'
 import Maps from './src/Screens/Maps'
+import AllStay from './src/Screens/AllStay'
 import Search from './src/Screens/search'
 
 
 
-const AppStack = createStackNavigator({
+const UserNavigator = createStackNavigator({
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null,
+      tabBarVisible: false,
+      header: null,
+    },
+  },
+  Register: {
+    screen: Register,
+    navigationOptions: {
+      tabBarVisible: false,
+      header: null,
 
-// Register: {
-//   screen: Register,
-//   navigationOptions: {
-//     tabBarVisible: false,
-//     header: null,
-//   },
-// },
-//   Login: {
-//     screen: Login,
-//     navigationOptions: {
-//       header: null,
-//       tabBarVisible: false,
-//       header: null,
-//     },
-//     },
-  
+    },
+  },
+});
+const AppNavigator= createStackNavigator({
+
+ 
   Explore: {
     screen: Explore,
     navigationOptions: {
@@ -56,6 +61,12 @@ const AppStack = createStackNavigator({
       navigationOptions:{
         header:null
       }
+  },
+  AllStay:{
+    screen:AllStay,
+    navigationOptions:{
+      header:null
+    }
   },
   Inbox: {
     screen: Inbox,
@@ -84,33 +95,19 @@ const AppStack = createStackNavigator({
     Search: {
       screen: Search,
       navigationOptions: {
+        tabBarVisible: null,
         header: null,
+        footer:null,
+        
       }
     
   },
 });
 
-const AuthStack = createStackNavigator({
-  Login: {
-    screen: Login,
-    navigationOptions: {
-      header: null,
-      tabBarVisible: false,
-      header: null,
-    },
-  },
-  Register: {
-    screen: Register,
-    navigationOptions: {
-      tabBarVisible: false,
-      header: null,
-    },
-  },
-});
 const BottomNavigator = createBottomTabNavigator(
   {
     Explore: {
-      screen: AppStack,
+      screen: AppNavigator,
       navigationOptions: {
         tabBarLabel: 'Explore',
         tabBarIcon: ({tintColor}) => (
@@ -191,26 +188,35 @@ const BottomNavigator = createBottomTabNavigator(
     },
   },
 );
-export default createAppContainer(
-  createSwitchNavigator(
-    {
-      Splashscreen: SplashScreen,
-      // AuthLoading: Authloadingscreen,
-      App: BottomNavigator,
-      Auth: AuthStack,
-    },
-    {
-      initialRouteName: 'Splashscreen',
-      headerMode: 'none',
-    },
-  ),
-);
+const switchScreen = createSwitchNavigator({
+  Splash: SplashScreen,
+  AuthScreen: UserNavigator,
+  App: BottomNavigator,
+});
+
+
+
+
+
+const SwitchScreen =  createAppContainer(switchScreen);
+
+class App extends Component {
+  render() {
+    return (
+     <View>
+        <SwitchScreen />
+        </View>
+    );
+  }
+}
+export default SwitchScreen;
+
 
 // class App extends React.Component{
 //   render(){
 //     return(
 //       <View>
-//         <Search/>
+//         <Register/>
 //       </View>
 //     )
 //   }

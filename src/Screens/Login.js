@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 
+
 import {
   //   SafeAreaView,
   //   StyleSheet,
@@ -9,6 +10,7 @@ import {
   Spinner,
   View,
   Text,
+  Image,
   ToastAndroid,
   //   Image,
   TextInput,
@@ -64,13 +66,13 @@ console.log('form',formData)
         } else {
           ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
         }
-        // console.log('async',AsyncStorage)
+        console.log('async',AsyncStorage)
       })
       .catch(err => {
         console.log(err);
       });
 
-    console.log(formData);
+    // console.log(formData);
     //fungsi login disini
   }
 
@@ -79,18 +81,22 @@ console.log('form',formData)
       return this.props.navigation.navigate('Explore');
     }
     return (
-      <ScrollView style={{}}>
-        <View style={{flex: 1}}>
-          <View style={{height: 60}}></View>
+      <ScrollView style={{backgroundColor:'#02656b'}}>
+        <View style={{flex: 1 ,backgroundColor:'#02656b'}}>
+          <View style={{height: 60,backgroundColor:'#02656b'}}></View>
           <View
             style={{
             
               height: 80,
               alignItems: 'center',
             }}>
-            <Text style={{fontSize: 25, fontWeight: 'bold', color: '#E5E6EE'}}>
-              Welcome to My Library Mobile App
+            <Text style={{fontSize: 25, fontWeight: 'bold', color: 'white'}}>
+             AIRKABNB
             </Text>
+            <Image
+              source={require('../Assets/airbnb.jpg')}
+              style={{height: 80, width: 80, tintColor: 'white',top:15}}
+            />
           </View>
           <View
             style={{
@@ -106,7 +112,7 @@ console.log('form',formData)
                 style={{
                   backgroundColor: '#E5E6EE',
                   borderWidth: 1,
-                  borderRadius: 0,
+                  borderRadius: 10,
 
                   height: 30,
                   width: 284,
@@ -124,7 +130,7 @@ console.log('form',formData)
                 style={{
                   backgroundColor: '#E5E6EE',
                   borderWidth: 1,
-                  borderRadius: 0,
+                  borderRadius: 10,
 
                   height: 30,
                   width: 284,
@@ -141,11 +147,11 @@ console.log('form',formData)
                 marginHorizontal: 30,
               }}>
               <Text
-                style={{fontSize: 22, color: '#4B4C72', fontWeight: 'bold'}}>
-                Sign
+                style={{fontSize: 22, color: 'white', fontWeight: 'bold'}}>
+                Sign In
               </Text>
               <TouchableOpacity onPress={this.loginUser.bind(this)}>
-                <Iconz name={'arrow-circle-right'} size={48} color={'green'} />
+                <Iconz name={'arrow-circle-right'} size={48} color={'white'} />
               </TouchableOpacity>
             </View>
           </View>
@@ -165,7 +171,7 @@ console.log('form',formData)
                     fontSize: 20,
                     fontFamily: ' Airbnb Cereal App',
                     fontWeight: 'bold',
-                    color: '#4B4C72',
+                    color: 'white',
                   }}>
                   Sign Up
                 </Text>
@@ -177,7 +183,7 @@ console.log('form',formData)
                   fontSize: 20,
                   fontFamily: ' Airbnb Cereal App',
                   fontWeight: 'bold',
-                  color: '#4B4C72',
+                  color: 'white',
                   left: 20,
                 }}>
                 Forgot Password

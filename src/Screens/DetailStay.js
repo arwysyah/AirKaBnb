@@ -37,6 +37,7 @@ class DetailStay extends Component {
 
     return (
       <View>
+      <View>
         <View style={{backgroundColor: 'transparent'}}>
           <Button
             transparent
@@ -80,7 +81,7 @@ class DetailStay extends Component {
                   style={styles.OwnerImage}
                 />
               </View>
-              <View style={{height: 600}}>
+              <View style={{height: 500}}>
                 <View style={{flexDirection: 'row'}}>
                   <Iconz style={{color: 'black'}} name="home" size={23} />
                   <Text style={{left: 20, top: 3, fontWeight: 'bold'}}>
@@ -112,15 +113,10 @@ class DetailStay extends Component {
                   <Text style={{fontSize: 23}}> Description</Text>
                   <Text>{stays.description}</Text>
                 </View>
-                <View style={{top:40}}>
-                  <TouchableOpacity style={styles.button}>
-                    <Text>Pesan</Text>
-                  </TouchableOpacity>
-                </View>
               </View>
             </View>
           </View>
-          <View style={{height: 500}}>
+          <View style={{height: 500,marginHorizontal:20}}>
             <MapView
               style={styles.map}
               provider={PROVIDER_GOOGLE}
@@ -145,7 +141,16 @@ class DetailStay extends Component {
             </MapView>
           </View>
         </ScrollView>
+        <View style={{backgroundColor:'black',height:100 ,bottom:80}}>
+      <TouchableOpacity style={styles.button}>
+        <Text>Pesan</Text>
+      </TouchableOpacity>
+    </View>
+         
+        
       </View>
+      
+    </View>
     );
   }
 }
@@ -178,7 +183,7 @@ const styles = StyleSheet.create({
     left: 20,
   },
   button: {
-    alignItems: 'center', 
+    alignItems: 'center',
     textAlign: 'center',
     justifyContent: 'center',
     height: 35,
@@ -188,6 +193,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     // shadowOpacity:100,
     borderTopColor: 'black',
-    fontWeight:'bold'
+    fontWeight: 'bold',
   },
 });

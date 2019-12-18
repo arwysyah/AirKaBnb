@@ -9,11 +9,65 @@ import {
   TextInput,
   Image,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import {Icon} from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage'
+import decode from 'jwt-decode'
 // import {Icon} from 'native-base';
 export default class Profile extends React.Component {
+state={
+  username:'',
+  email:'',
+  address:'',
+  data:[]
+}
+
+async componentDidMount(){
+  let data = await AsyncStorage.getItem('jwt');
+  console.log(decode(data));
+  const profile = decode(data);  //kita masukkin tuh token kedalam variabel profile
+  this.setState({
+    username:profile.result.username,
+    email:profile.result.email,
+    address:profile.result.address
+  })
+  
+}
+ async handleLogout(){
+  Alert.alert(
+    'Logout',
+    'Are You Sure Want to Logout ?',
+    [
+     
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: async() => {
+        try {
+    
+          await AsyncStorage.removeItem('jwt')
+          this.props.navigation.navigate('Login')
+        } catch (err) {
+          console.log(`The error is: ${err}`)
+        }
+
+      }},
+    ],
+    {cancelable: false},
+  )
+ 
+ 
+}
+
   render() {
+    // let token = AsyncStorage.jwt  
+    // console.log('local',AsyncStorage,token)
+    // console.log('yang didecode',decode())
+    
+
     return (
       <>
         <ScrollView>
@@ -44,7 +98,7 @@ export default class Profile extends React.Component {
                   flexDirection: 'column',
                   marginLeft: 15,
                 }}>
-                <Text style={styles.nameuser}>Wahyu</Text>
+  <Text style={styles.nameuser}>{this.state.username}</Text>
                 <TouchableOpacity>
                   <Text style={styles.viewprofile}>View Profile</Text>
                 </TouchableOpacity>
@@ -244,11 +298,13 @@ export default class Profile extends React.Component {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            
               <View style={styles.menuinner}>
-                <Text style={styles.logout}>Log out</Text>
+              <TouchableOpacity onPress={()=>{this.handleLogout()}}>
+                <Text style={styles.logout}>LOGOUT</Text>
+                </TouchableOpacity>
               </View>
-            </TouchableOpacity>
+           
             <TouchableOpacity>
               <View style={styles.menuinner}>
                 <Text style={styles.innercontent}>Switch account</Text>
@@ -312,7 +368,8 @@ const styles = StyleSheet.create({
   },
   logout: {
     fontSize: 16,
-    color: '#79c8db',
+    color: '#02656b',
+    fontWeight:'bold'
   },
   icon: {
     fontSize: 20,

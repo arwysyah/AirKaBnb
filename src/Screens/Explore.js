@@ -18,6 +18,7 @@ import Iconza from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 // import AsyncStorage from '@react-native-community/async-storage';
 
+
 class Explore extends Component {
   constructor() {
     super();
@@ -29,19 +30,19 @@ class Explore extends Component {
 
   async refresh(){
     await  axios.get('http://192.168.100.155:9000/experience').then(result => {
-      console.log(result.data.response);
+      // console.log(result.data.response);
       this.setState({
         exp: result.data.response,
       });
     });
-  
+    console.log('asyncstorage', await AsyncStorage.getItem('jwt'));
       
   }
   async componentDidMount() {
    
     try {
       axios.get('http://192.168.100.155:9000/experience').then(result => {
-        console.log(result.data.response);
+        // console.log(result.data.response);
         this.setState({
           exp: result.data.response,
         });
@@ -51,7 +52,7 @@ class Explore extends Component {
     }
 
     axios.get('http://192.168.100.155:9000/stay/limit').then(result => {
-      console.log(result.data.response);
+      // console.log(result.data.response);
       this.setState({
         stay: result.data.response,
       });
@@ -133,6 +134,9 @@ class Explore extends Component {
                     }}>
                     <View style={styles.ViewData}>
                       <View>
+                        <TouchableOpacity onPress={()=>{
+                        this.props.navigation.navigate('AllStay')
+                      }}>
                         <Image
                           source={require('../Assets/restaurant.jpg')}
                           style={{
@@ -143,6 +147,7 @@ class Explore extends Component {
                             borderTopLeftRadius: 10,
                           }}
                         />
+                        </TouchableOpacity>
                       </View>
                       <Text
                         style={{
@@ -161,6 +166,7 @@ class Explore extends Component {
 
                   <View style={styles.card}>
                     <View>
+                      <TouchableOpacity >
                       <Image
                         source={require('../Assets/experiences.jpg')}
                         style={{
@@ -171,6 +177,7 @@ class Explore extends Component {
                           borderTopLeftRadius: 10,
                         }}
                       />
+                      </TouchableOpacity>
                     </View>
                     <Text
                       style={{
@@ -262,7 +269,7 @@ class Explore extends Component {
                       Rp. {st.price} /malam
                     </Text>
                     <Text style={{fontSize: 15, fontWeight: 'bold', top: 10}}>
-                      Rp. {st.room_type} /malam
+                     {st.room_type} 
                     </Text>
                   </View>
                 </View>

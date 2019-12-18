@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Axios from 'axios';
 import {
   //   SafeAreaView,
-  //   StyleSheet,
+    StyleSheet,
   //   ScrollView,
   Spinner,
   View,
@@ -62,23 +62,24 @@ class Register extends Component {
     
    
     return (
-      <ScrollView  >
-        <View style={{flex: 1}}>
+      <ScrollView style={{backgroundColor:'#02656b',height:"100%"}}>
+        <View >
           <View style={{height: 60}}></View>
           <View
             style={{
              
               height: 80,
               alignItems: 'center',
+              
             }}>
             <Text
               style={{
                 fontSize: 25,
                 fontWeight: 'bold',
-                color: 'black',
+                color: 'white',
                 textAlign: 'center',
               }}>
-            AIRKabnb
+            AIRKABNB
             </Text>
           </View>
           <View
@@ -88,8 +89,8 @@ class Register extends Component {
             }}></View>
 
           <View style={{height: 40}} style={{marginHorizontal: 35}}>
-            <Text >Username</Text>
-            <View>
+            <Text style={styles.text} >Username</Text>
+            <View >
               <TextInput
                 onChangeText={username => this.setState({username: username})}
                 // value={dataPostLogin.password}
@@ -98,14 +99,14 @@ class Register extends Component {
                 style={{
                   backgroundColor: '#E5E6EE',
                   borderWidth: 1,
-                  borderRadius: 0,
+                  borderRadius: 10,
 
                   height: 30, 
                   width: 284,
                 }}
               />
             </View>
-            <Text>Email</Text>
+            <Text style={styles.text} >Email</Text>
             <View style={{justifyContent: 'center'}}>
               <TextInput
                 onChangeText={email => this.setState({email: email})}
@@ -113,7 +114,7 @@ class Register extends Component {
                 style={{
                   backgroundColor: '#E5E6EE',
                   borderWidth: 1,
-                  borderRadius: 0,
+                  borderRadius: 10,
 
                   height: 30,
                   width: 284,
@@ -121,7 +122,7 @@ class Register extends Component {
               />
             </View>
 
-            <Text >Password</Text>
+            <Text style={styles.text} >Password</Text>
             <View>
               <TextInput
                 onChangeText={password => this.setState({password: password})}
@@ -132,14 +133,14 @@ class Register extends Component {
                 style={{
                   backgroundColor: '#E5E6EE',
                   borderWidth: 1,
-                  borderRadius: 0,
+                  borderRadius: 10,
 
                   height: 30,
                   width: 284,
                 }}
               />
             </View>
-            <Text >address</Text>
+            <Text style={styles.text} >address</Text>
             <View>
               <TextInput
                 onChangeText={address => this.setState({address: address})}
@@ -150,7 +151,7 @@ class Register extends Component {
                 style={{
                   backgroundColor: '#E5E6EE',
                   borderWidth: 1,
-                  borderRadius: 0,
+                  borderRadius: 10,
 
                   height: 30,
                   width: 284,
@@ -168,11 +169,11 @@ class Register extends Component {
                 marginHorizontal: 30,
               }}>
               <Text
-                style={{fontSize: 22,top:15, color: '#4B4C72', fontWeight: 'bold'}}>
+                style={{fontSize: 22,top:15, color: 'white', fontWeight: 'bold'}}>
                 Register
               </Text>
               <TouchableOpacity onPress={this.registerUser.bind(this)}>
-                <Iconz name={'arrow-circle-right'} size={48} color={'green'} />
+                <Iconz name={'arrow-circle-right'} size={48} color={'white'} />
               </TouchableOpacity>
             </View>
           </View>
@@ -181,6 +182,7 @@ class Register extends Component {
               marginHorizontal: 30,
               flexDirection: 'row',
               justifyContent: 'space-between',
+              
             }}>
            
             <View style={{alignItems: 'center'}}>
@@ -189,34 +191,14 @@ class Register extends Component {
                   this.props.navigation.navigate('Login');
                 }}>
               <Text
-                style={{
-                  fontSize: 20,
-                  fontFamily: ' Airbnb Cereal App',
-                  fontWeight: 'bold',
-                  color: '#4B4C72',
-                  textAlign: 'center',
-                  justifyContent:'center',
-                  alignItems:'center'
-                }}>
+                style={styles.signIn      
+                }>
                 Sign In
                 
               </Text>
               </TouchableOpacity>
             </View>
            
-            <View>
-              {/* <Text
-                style={{
-                  fontSize: 20,
-                  fontFamily: ' Airbnb Cereal App',
-                  fontWeight: 'bold',
-                  color: '#4B4C72',
-                  left: 50,
-                }}>
-                Forgot Password
-              </Text> */}
-            </View>
-            <View></View>
           </View>
         </View>
       </ScrollView>
@@ -225,3 +207,17 @@ class Register extends Component {
 }
 
 export default Register;
+const styles= StyleSheet.create({
+  signIn:{
+    fontSize: 20,
+    fontFamily: ' Airbnb Cereal App',
+    fontWeight: 'bold',
+    color: 'white',
+    textAlign: 'center',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  text:{
+    color:'white'
+  }
+})
