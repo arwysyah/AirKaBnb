@@ -17,6 +17,7 @@ import logoAirbnb from './src/Assets/airbnb.jpg';
 import Detail from './src/Screens/Detail'
 import DetailStay from './src/Screens/DetailStay'
 import Maps from './src/Screens/Maps'
+import Search from './src/Screens/search'
 
 
 
@@ -79,6 +80,13 @@ const AppStack = createStackNavigator({
     navigationOptions: {
       header: null,
     },
+  },
+    Search: {
+      screen: Search,
+      navigationOptions: {
+        header: null,
+      }
+    
   },
 });
 
@@ -202,7 +210,7 @@ export default createAppContainer(
 //   render(){
 //     return(
 //       <View>
-//         <Login/>
+//         <Search/>
 //       </View>
 //     )
 //   }

@@ -81,9 +81,7 @@ export default class SplashScreen extends Component {
           top: 150,
          
         }}>
-        <Text style={{textAlign: 'center', fontSize: 40, color: 'green'}}>
-          Welcome To Library Mobile App
-        </Text>
+        
        
         <View style={[styles.container, styles.horizontal]}>
           <ActivityIndicator size="large" color="#00ff00" />
@@ -95,14 +93,14 @@ export default class SplashScreen extends Component {
                         source={require('../Assets/airbnb.jpg')}
                         style={{
                           alignContent:'center',
-                          height: 136,
-                          width: 216,
+                          height: 176,
+                          width: 180,
                           left:80,
 
                           borderRadius: 15,
                         }}
                       />
-        <Text style={{textAlign:'center',top:20,color:'green'}}>This Mobile APP created by ARWY SYAHPUTRA SIREGAR</Text>
+       
       </View>
       </View>
     );

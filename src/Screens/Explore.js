@@ -65,13 +65,14 @@ class Explore extends Component {
 
             borderBottomColor: '#ccc5ba',
             borderBottomWidth: 1,
+            backgroundColor:'#FF5A5F'
           }}>
           <TouchableOpacity onPress={() => this.refresh()}>
             <Text
               style={{
-                left: 14,
+                left: 11,
                 fontWeight: 'bold',
-                color: 'red',
+                color: '#00A699',
                 fontSize: 14,
                 fontFamily: 'Airbnb Cerl App',
               }}>
@@ -79,7 +80,7 @@ class Explore extends Component {
             </Text>
             <Image
               source={require('../Assets/airbnb.jpg')}
-              style={{height: 24, width: 24, tintColor: 'red', left: 20}}
+              style={{height: 24, width: 24, tintColor: '#00A699', left: 20}}
             />
           </TouchableOpacity>
           <View
