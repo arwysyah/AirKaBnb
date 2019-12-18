@@ -7,6 +7,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 import Iconz from 'react-native-vector-icons/MaterialIcons';
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
@@ -79,13 +80,17 @@ class DetailStay extends Component {
                   style={styles.OwnerImage}
                 />
               </View>
-              <View style={{height: 400}}>
+              <View style={{height: 600}}>
                 <View style={{flexDirection: 'row'}}>
                   <Iconz style={{color: 'black'}} name="home" size={23} />
-                  <Text style={{left: 20, top: 3}}>hello world</Text>
+                  <Text style={{left: 20, top: 3, fontWeight: 'bold'}}>
+                    Kamar Tamu
+                  </Text>
                 </View>
                 <View>
-                  <Text style={{left: 42}}>hello</Text>
+                  <Text style={{left: 42}}>
+                    tamu . 1 Kamar tidur. 1 tempat tidur. 1 kamar mandi
+                  </Text>
                 </View>
                 <View style={{flexDirection: 'row'}}>
                   <Iconz
@@ -93,12 +98,24 @@ class DetailStay extends Component {
                     name="location-on"
                     size={23}
                   />
-                  <Text style={{left: 20}}>
-                    hello world , i wanna be millionare
+                  <Text style={{left: 20, fontWeight: 'bold', top: 5}}>
+                    Lokasi Luar Biasa
                   </Text>
                 </View>
                 <View>
-                  <Text style={{left: 42}}>hello</Text>
+                  <Text style={{left: 42}}>
+                    95% tamu baru baru ini memberikan 5 bintang untuk process
+                    check in
+                  </Text>
+                </View>
+                <View style={{top: 20}}>
+                  <Text style={{fontSize: 23}}> Description</Text>
+                  <Text>{stays.description}</Text>
+                </View>
+                <View style={{top:40}}>
+                  <TouchableOpacity style={styles.button}>
+                    <Text>Pesan</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -159,5 +176,18 @@ const styles = StyleSheet.create({
     width: 80,
     marginTop: 10,
     left: 20,
+  },
+  button: {
+    alignItems: 'center', 
+    textAlign: 'center',
+    justifyContent: 'center',
+    height: 35,
+    width: 100,
+    // shadowColor:'black',
+    backgroundColor: '#FF5A5F',
+    borderRadius: 15,
+    // shadowOpacity:100,
+    borderTopColor: 'black',
+    fontWeight:'bold'
   },
 });

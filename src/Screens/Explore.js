@@ -26,14 +26,19 @@ class Explore extends Component {
       stay: [],
     };
   }
-  // async refresh() {
-  //   await this.props.dispatch(getBook());
 
-  //   this.setState({
-  //     bookData: this.props.data.bookData,
-  //   });
-  // }
+  async refresh(){
+    await  axios.get('http://192.168.100.155:9000/experience').then(result => {
+      console.log(result.data.response);
+      this.setState({
+        exp: result.data.response,
+      });
+    });
+  
+      
+  }
   async componentDidMount() {
+   
     try {
       axios.get('http://192.168.100.155:9000/experience').then(result => {
         console.log(result.data.response);
@@ -55,7 +60,6 @@ class Explore extends Component {
   }
 
   render() {
-   
     return (
       <View style={{color: 'black', flex: 1}}>
         <View
@@ -65,7 +69,7 @@ class Explore extends Component {
 
             borderBottomColor: '#ccc5ba',
             borderBottomWidth: 1,
-            backgroundColor:'#FF5A5F'
+            backgroundColor: '#FF5A5F',
           }}>
           <TouchableOpacity onPress={() => this.refresh()}>
             <Text
@@ -230,40 +234,40 @@ class Explore extends Component {
                 </View>
               </View>
             </View>
-{this.state.stay.map((st,index)=>(
-<TouchableOpacity onPress ={id=>{this.props.navigation.navigate('DetailStay',{
-  st:{...st}
-})}}>
-
-            <View style={{height: 290}}
-            key={index}>
-              <View style={{borderRadius: 5}}>
-                <Image
-                  source={{uri: st.image_url}}
-                  style={{height: 140, width: 230, borderRadius: 5}}
-                />
-              </View>
-              <View style={{top: 5, flexDirection: 'row'}}>
-                <Badge style={styles.Badge}>
-                  <Text style={{textAlign:'center'}}>{st.name}</Text>
-                </Badge>
-                <Text style={{left: 15, color: 'grey'}}>{st.location}</Text>
-              </View>
-              <View>
-                <Text style={{top: 10, fontSize: 17}}>
-                  {st.name.toUpperCase()}
-                </Text>
-                <Text style={{fontSize: 17, fontWeight: 'bold', top: 10}}>
-                  Rp. {st.price} /malam
-                </Text>
-                <Text style={{fontSize: 15, fontWeight: 'bold', top: 10}}>
-                  Rp. {st.room_type} /malam
-                </Text>
-              </View>
-            
-            </View>
-            </TouchableOpacity>
-))}
+            {this.state.stay.map((st, index) => (
+              <TouchableOpacity
+                onPress={id => {
+                  this.props.navigation.navigate('DetailStay', {
+                    st: {...st},
+                  });
+                }}>
+                <View style={{height: 290}} key={index}>
+                  <View style={{borderRadius: 5}}>
+                    <Image
+                      source={{uri: st.image_url}}
+                      style={{height: 140, width: 230, borderRadius: 5}}
+                    />
+                  </View>
+                  <View style={{top: 5, flexDirection: 'row'}}>
+                    <Badge style={styles.Badge}>
+                      <Text style={{textAlign: 'center'}}>{st.name}</Text>
+                    </Badge>
+                    <Text style={{left: 15, color: 'grey'}}>{st.location}</Text>
+                  </View>
+                  <View>
+                    <Text style={{top: 10, fontSize: 17}}>
+                      {st.name.toUpperCase()}
+                    </Text>
+                    <Text style={{fontSize: 17, fontWeight: 'bold', top: 10}}>
+                      Rp. {st.price} /malam
+                    </Text>
+                    <Text style={{fontSize: 15, fontWeight: 'bold', top: 10}}>
+                      Rp. {st.room_type} /malam
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
             <View>
               <View>
                 <Text style={styles.textTitle}>

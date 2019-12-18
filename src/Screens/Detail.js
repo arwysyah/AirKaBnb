@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Icon, Button} from 'native-base';
-import {View, Text, StyleSheet, Image, ScrollView,Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView,Dimensions,TouchableOpacity} from 'react-native';
 import Iconz from 'react-native-vector-icons/MaterialIcons';
 import MapView,{PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps'
 
@@ -63,35 +63,41 @@ class Detail extends Component {
                 {detail.location} {'\n'} owner {detail.owner}
               </Text>
 
-              <Image
-                source={require('../Assets/experiences.jpg')}
-                style={styles.OwnerImage}
-              />
+             
             </View>
             <View style={{height: 400}}>
               <View style={{flexDirection: 'row'}}>
                 <Iconz style={{color: 'black'}} name="home" size={23} />
-                <Text style={{left: 20, top: 3}}>hello world</Text>
+                <Text style={{left: 20, top: 3}}>Kamar Pribadi Di Apartemen</Text>
               </View>
               <View>
-                <Text style={{left: 42}}>hello</Text>
+                <Text style={{left: 42}}>tamu . 1 Kamar tidur. 1 tempat tidur. 1 kamar mandi</Text>
               </View>
               <View style={{flexDirection: 'row'}}>
                 <Iconz style={{color: 'black'}} name="location-on" size={23} />
                 <Text style={{left: 20}}>
-                  hello world , i wanna be millionare
+                 Lokasi Luar Biasa
                 </Text>
               
                
               </View>
               <View>
-                <Text style={{left: 42}}>hello</Text>
+                <Text style={{left: 42}}>95% tamu baru baru ini memberikan 5 bintang untuk process check in</Text>
               </View>
+              <View style={{top: 20}}>
+                  <Text style={{fontSize: 23}}> Description</Text>
+                  <Text>{detail.description}</Text>
+                </View>
+                <View style={{top:40}}>
+                  <TouchableOpacity style={styles.button}>
+                    <Text>Pesan</Text>
+                  </TouchableOpacity>
+                </View>
             </View>
           </View>
           
         </View>
-        <View style={{height: 500}}>
+        {/* <View style={{height: 500}}>
             <MapView
               style={styles.map}
               provider={PROVIDER_GOOGLE}
@@ -114,7 +120,7 @@ class Detail extends Component {
                 </Callout>
               </Marker>
             </MapView>
-          </View>
+          </View> */}
       </ScrollView>
       </View>
     );
@@ -135,7 +141,7 @@ width:360,height:240
     height: 60,
     width: 60,
     borderRadius: 40,
-    right: -50,
+    right: 50,
     top: -10,
   }, map: {
     height: 400,
@@ -145,5 +151,18 @@ width:360,height:240
     width: 80,
     marginTop: 10,
     left: 20,
+  },
+  button: {
+    alignItems: 'center', 
+    textAlign: 'center',
+    justifyContent: 'center',
+    height: 35,
+    width: 100,
+    // shadowColor:'black',
+    backgroundColor: '#FF5A5F',
+    borderRadius: 15,
+    // shadowOpacity:100,
+    borderTopColor: 'black',
+    fontWeight:'bold'
   },
 });
