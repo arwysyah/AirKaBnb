@@ -21,7 +21,7 @@ import Maps from './src/Screens/Maps'
 import AllStay from './src/Screens/AllStay'
 import Search from './src/Screens/search'
 import Wishlist from './src/Screens/Store'
-
+import Information from './src/Screens/information'
 
 const UserNavigator = createStackNavigator({
   Login: {
@@ -84,6 +84,12 @@ const AppNavigator= createStackNavigator({
     navigationOptions: {
       header: null,
     },
+  },
+  Information:{
+    screen:Information,
+    navigationOptions:{
+      header:null
+    }
   },
   Saved: {
     screen: Saved,

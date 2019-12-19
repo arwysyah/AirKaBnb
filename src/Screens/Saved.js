@@ -32,7 +32,7 @@ class store extends Component {
         console.log('result',result)
         this.setState({
           store: result.data.response,
-      istore:true
+      
         });
       });
   }
@@ -43,13 +43,13 @@ class store extends Component {
     const id_user = user.result.id_user;
     this.setState({refresh: false});
     this.setState({
-      istore:true
+    
     })
 
     axios
-      .get(`http://192.168.100.155:9000/wishlists/${id_user}`)
-      .then(result => {
-        console.log(result, 'res');
+      .get(`http://192.168.6.122:9000/wishlists/${id_user}`)
+      .then(results => {
+        console.log(results, 'res');
         this.setState({
           store: result.data.response,
        
@@ -61,7 +61,7 @@ class store extends Component {
         console.log(err);
       });
 
-    console.log(userId);
+    
   }
   dateFormat = date_data => {
     // console.log(date_data);
@@ -147,7 +147,7 @@ class store extends Component {
               <Icon style={{color: 'black', right: -170}} name="refresh" />
             </Button>
           </TouchableOpacity>
-          {istore == true ? 
+          {/* {istore == true ?  */}
           <View>
             {this.state.store.map((store, index) => (
               <View key={index}>
@@ -178,11 +178,11 @@ class store extends Component {
               </View>
             ))}
           </View>
-          : 
-            <Text>
+          {/* :  */}
+            {/* <Text>
               hello world
             </Text>
-          }
+          } */}
         </ScrollView>
       </View>
     );

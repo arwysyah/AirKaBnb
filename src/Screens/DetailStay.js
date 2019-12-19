@@ -39,6 +39,59 @@ class DetailStay extends Component {
       disabled: false,
     });
   }
+
+handlebooking=()=>{
+  const stays = this.props.navigation.getParam('st');
+  Alert.alert('Confirm Booking', 'Do You Like This Place?', [
+    {
+      text: 'Cancel',
+      onPress: () => console.log('cancel'),
+      style: 'cancel',
+    },
+    {
+      text: 'Yes',
+     
+      onPress: async () => {
+        try {
+          let data = await AsyncStorage.getItem('jwt');
+          console.log(decode(data));
+          const profile = decode(data); 
+          console.log(profile,'profile') 
+          const id_user= profile.result.id_user
+          console.log('user id', profile.result.id_user);
+          // console.log('resu',user.result) //ini penting
+          const detail = this.props.navigation.getParam('st');
+          const id_room = detail.id_room;
+       
+          // console.log('data',data.id,idBook) //navigator
+          let formData = {
+            id_user: profile.result.id_user,
+            id_room: id_room,
+          };
+          console.log('user',profile.result.id_user)
+          console.log('id room',detail.id_room)
+          console.log('form',formData)
+          console.log(id_user,id_room, 'data')
+          // console.log('tipe', typeof formData);
+          await Axios
+          // .post('http://192.168.100.155:9000/wishlist', formData);
+          .post('http://192.168.6.122:9000/booking', formData);
+          console.log(formData,'fo')
+          console.log('succes');
+          ToastAndroid.show('Booking Successfuly', ToastAndroid.SHORT);
+          // await this.props.dispatch(addBorrow(userId, userToken, formData))
+          // this.checkBorrowed()
+        } catch (error) {
+          console.log('error', error);
+        }
+      },
+      style: 'default',
+    },
+  ]);
+
+}
+
+
   handleStore(){
     Alert.alert('Confirm Store', 'Do You Like This Place?', [
       {
@@ -135,6 +188,7 @@ class DetailStay extends Component {
               <View style={{flexDirection: 'row'}}>
                 <Text style={{color: '#36281a', fontSize: 16}}>
                   {stays.location} {'\n'} owner {stays.owner}
+                  {'\n'} price : Rp.{stays.price}
                 </Text>
 
                 <Image
@@ -175,6 +229,9 @@ class DetailStay extends Component {
                   <Text>{stays.description}</Text>
                 </View>
               </View>
+              <TouchableOpacity style={styles.button4} onPress={()=>{this.handlebooking()}}>
+        <Text>Pesan</Text>
+      </TouchableOpacity>
             </View>
           </View>
           <View style={{height: 500,marginHorizontal:20}}>
@@ -200,12 +257,11 @@ class DetailStay extends Component {
                 </Callout>
               </Marker>
             </MapView>
+            
           </View>
         </ScrollView>
         <View style={{backgroundColor:'black',height:100 ,bottom:80}}>
-      <TouchableOpacity style={styles.button}>
-        <Text>Pesan</Text>
-      </TouchableOpacity>
+    
     </View>
          
         
@@ -243,7 +299,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     left: 20,
   },
-  button: {
+  button4: {
     alignItems: 'center',
     textAlign: 'center',
     justifyContent: 'center',
@@ -255,5 +311,6 @@ const styles = StyleSheet.create({
     // shadowOpacity:100,
     borderTopColor: 'black',
     fontWeight: 'bold',
+    top:-20
   },
 });

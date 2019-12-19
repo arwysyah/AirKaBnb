@@ -99,7 +99,9 @@ async componentDidMount(){
                   marginLeft: 15,
                 }}>
   <Text style={styles.nameuser}>{this.state.username}</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>{
+                  this.props.navigation.navigate('Information')
+                }}>
                   <Text style={styles.viewprofile}>View Profile</Text>
                 </TouchableOpacity>
               </View>
@@ -143,7 +145,9 @@ async componentDidMount(){
             <Text style={{color: '#c4c4c4', marginBottom: 10}}>
               ACCOUNT SETTINGS
             </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>{
+              this.props.navigation.navigate('Information')
+            }}>
               <View style={styles.menuinner}>
                 <Text style={styles.innercontent}>Personal Information</Text>
                 <Icon type="SimpleLineIcons" name="user" style={styles.icon} />

@@ -176,7 +176,45 @@ class Explore extends Component {
                       </Text>
                     </View>
                   </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      marginLeft: 5,
+                      paddingRight: 10,
+                      flex: 1,
+                      borderRadius: 15,
+                    }}>
+                    <View style={styles.ViewData}>
+                      <View>
+                        <TouchableOpacity onPress={()=>{
+                        this.props.navigation.navigate('AllStay')
+                      }}>
+                        <Image
+                          source={require('../Assets/explore.jpg')}
+                          style={{
+                            height: 90,
+                            width: 129,
 
+                            borderTopRightRadius: 10,
+                            borderTopLeftRadius: 10,
+                          }}
+                        />
+                        </TouchableOpacity>
+                      </View>
+                      <Text
+                        style={{
+                          width: 100,
+                          fontSize: 20,
+                          // backgroundColor: '#d9d5d4',
+                          position: 'absolute',
+                          left: 10,
+                          top: 100,
+                          textAlign: 'center',
+                        }}>
+                        Adventure
+                      </Text>
+                    </View>
+                  </View>
                   <View style={styles.card}>
                     <View>
                       <TouchableOpacity >
