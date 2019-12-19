@@ -32,7 +32,8 @@ export default class Search extends Component {
     const search = this.state.valueSearch;
     axios
       .get(
-        `http://192.168.100.155:9000/stay/filter/stays/search/${search}`,
+        // `http://192.168.100.155:9000/stay/filter/stays/search/${search}`,
+        `http://192.168.6.122:9000/stay/filter/stays/search/${search}`,
       )
       .then(response => {
         this.setState({

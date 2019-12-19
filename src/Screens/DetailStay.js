@@ -8,9 +8,16 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Alert,
+  ToastAndroid
 } from 'react-native';
 import Iconz from 'react-native-vector-icons/MaterialIcons';
 import MapView, {PROVIDER_GOOGLE, Marker, Callout} from 'react-native-maps';
+import Iconsa from 'react-native-vector-icons/AntDesign'
+import Axios from 'axios'
+import decode from 'jwt-decode'
+import AsyncStorage from '@react-native-community/async-storage'
+
 
 const {width, height} = Dimensions.get('window');
 const ASPECT_RATIO = width / height;
@@ -31,6 +38,54 @@ class DetailStay extends Component {
       isLoading: false,
       disabled: false,
     });
+  }
+  handleStore(){
+    Alert.alert('Confirm Store', 'Do You Like This Place?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('cancel'),
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: async () => {
+          try {
+            let data = await AsyncStorage.getItem('jwt');
+            console.log(decode(data));
+            const profile = decode(data); 
+            console.log(profile,'profile') 
+            const id_user= profile.result.id_user
+            console.log('user id', profile.result.id_user);
+            // console.log('resu',user.result) //ini penting
+            const detail = this.props.navigation.getParam('st');
+            const id_room = detail.id_room;
+         
+            // console.log('data',data.id,idBook) //navigator
+            let formData = {
+              id_user: profile.result.id_user,
+              id_room: id_room,
+            };
+            console.log('user',profile.result.id_user)
+            console.log('id room',detail.id_room)
+            console.log('form',formData)
+            console.log(id_user,id_room, 'data')
+            // console.log('tipe', typeof formData);
+            await Axios
+            // .post('http://192.168.100.155:9000/wishlist', formData);
+            .post('http://192.168.6.122:9000/wishlist', formData);
+            console.log(formData,'fo')
+            console.log('succes');
+            ToastAndroid.show('it saved in you store', ToastAndroid.SHORT);
+            // await this.props.dispatch(addBorrow(userId, userToken, formData))
+            // this.checkBorrowed()
+          } catch (error) {
+            console.log('error', error);
+          }
+        },
+        style: 'default',
+      },
+    ]);
+  
   }
   render() {
     const stays = this.props.navigation.getParam('st');
@@ -61,7 +116,13 @@ class DetailStay extends Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View>
             <View style={{height: 240, width: 360}}>
+             
               <Image source={{uri: stays.image_url}} style={styles.imageUrl} />
+               <View style={{backgroundColor:"white",width:30,top:-237,left:325,borderRadius:6}}>
+                 <TouchableOpacity onPress={this.handleStore.bind(this)}>
+            <Iconsa style={{color: 'red'}} name="like1" size={25} />
+            </TouchableOpacity>
+            </View>
             </View>
             <View style={styles.main}>
               <View style={{top: 30, width: 200}}>

@@ -36,7 +36,10 @@ class Register extends Component {
       address : this.state.address
     };
 
-    Axios.post(`http://192.168.100.155:9000/user/register`, formData).then(res => {
+    Axios
+    // .post(`http://192.168.100.155:9000/user/register`, formData)
+    .post(`http://192.168.6.122:9000/user/register`, formData)
+    .then(res => {
       console.log(
         'ini res, response,token',
         res,

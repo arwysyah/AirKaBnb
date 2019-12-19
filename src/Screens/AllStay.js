@@ -27,16 +27,19 @@ class Explore extends Component {
     };
   }
 
-  //   async refresh() {
-  //     await axios.get('http://192.168.100.155:9000/stay').then(result => {
-  //       console.log(result.data.response);
-  //       this.setState({
-  //         stay: result.data.response,
-  //       });
-  //     });
-  //   }
+    async refresh() {
+      await axios.get('http://192.168.6.122:9000/stay').then(result => {
+        console.log(result.data.response);
+        this.setState({
+          stay: result.data.response,
+        });
+      });
+    }
   async componentDidMount() {
-    axios.get('http://192.168.100.155:9000/stay').then(result => {
+    axios
+    // .get('http://192.168.100.155:9000/stay')
+    .get('http://192.168.6.122:9000/stay')
+    .then(result => {
       console.log(result.data.response);
       this.setState({
         stay: result.data.response,
@@ -57,9 +60,10 @@ class Explore extends Component {
             borderBottomWidth: 1,
             backgroundColor: '#FF5A5F',
           }}>
-          <TouchableOpacity   onPress={() => {
-                this.props.navigation.goBack();
-              }}>
+          <TouchableOpacity   onPress={() => 
+                // this.props.navigation.goBack();
+                this.refresh()
+              }>
             <Text
               style={{
                 left: 11,
@@ -87,7 +91,9 @@ class Explore extends Component {
               
             }}>
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Search')}
+              onPress={() => 
+                this.props.navigation.navigate('Search')
+            }
               transparent>
               <Icon
                 style={{color: 'black', right: -180, top: 3}}
@@ -216,7 +222,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderLeftWidth: 1,
     borderTopWidth: 1,
-    width: 120,
+    width: 180,
     height: 20,
   },
   card1: {

@@ -20,7 +20,7 @@ import DetailStay from './src/Screens/DetailStay'
 import Maps from './src/Screens/Maps'
 import AllStay from './src/Screens/AllStay'
 import Search from './src/Screens/search'
-
+import Wishlist from './src/Screens/Store'
 
 
 const UserNavigator = createStackNavigator({
@@ -54,6 +54,11 @@ const AppNavigator= createStackNavigator({
     screen:Detail,
     navigationOptions:{
       header:null
+    }
+  },Wishlist:{
+    screen:Wishlist,
+    navigationOptions:{
+      header:null,
     }
   },
     DetailStay:{
@@ -216,7 +221,7 @@ export default SwitchScreen;
 //   render(){
 //     return(
 //       <View>
-//         <Register/>
+//         <Wishlist/>
 //       </View>
 //     )
 //   }

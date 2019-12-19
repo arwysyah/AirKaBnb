@@ -16,6 +16,7 @@ import {Badge, Icon} from 'native-base';
 import axios from 'axios';
 import Iconza from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-community/async-storage';
+import decode from 'jwt-decode';
 // import AsyncStorage from '@react-native-community/async-storage';
 
 
@@ -25,6 +26,7 @@ class Explore extends Component {
     this.state = {
       exp: [],
       stay: [],
+      name:''
     };
   }
 
@@ -39,9 +41,17 @@ class Explore extends Component {
       
   }
   async componentDidMount() {
-   
+    
+    let data = await AsyncStorage.getItem('jwt')
+   let profile= decode(data)
+   this.setState({
+     name:profile.result.username
+   })
     try {
-      axios.get('http://192.168.100.155:9000/experience').then(result => {
+      axios
+      // .get('http://192.168.100.155:9000/experience')
+      .get('http://192.168.6.122:9000/experience')
+      .then(result => {
         // console.log(result.data.response);
         this.setState({
           exp: result.data.response,
@@ -51,7 +61,10 @@ class Explore extends Component {
       console.log(error.response.data);
     }
 
-    axios.get('http://192.168.100.155:9000/stay/limit').then(result => {
+    axios
+    // .get('http://192.168.100.155:9000/stay/limit')
+    .get('http://192.168.6.122:9000/stay/limit')
+    .then(result => {
       // console.log(result.data.response);
       this.setState({
         stay: result.data.response,
@@ -114,7 +127,7 @@ class Explore extends Component {
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{top: 40}}>
               <Text style={{fontSize: 40}}>
-                Anda Ingin Dibantu menemukan apa Kenzo?
+          Anda Ingin Dibantu menemukan apa {this.state.name}?
               </Text>
             </View>
             <View>
@@ -222,7 +235,7 @@ class Explore extends Component {
                         {d.location.toUpperCase()}
                       </Text>
                       <Text style={styles.commonText}>
-                        {d.location.toLowerCase()}
+                        {d.packet_name.toLowerCase()}
                       </Text>
                       <Text style={{fontSize: 16, color: 'grey'}}>
                         Rp. {d.price} per orang
@@ -316,7 +329,7 @@ class Explore extends Component {
                           <Badge style={styles.Badge}>
                             <Text>{st.name}</Text>
                           </Badge>
-                          <Text style={{left: 15, color: 'grey'}}>
+                          <Text style={{left: 5, color: 'grey'}}>
                             {st.location}
                           </Text>
                         </View>
@@ -411,7 +424,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderLeftWidth: 1,
     borderTopWidth: 1,
-    width: 120,
+    width: 145,
     height: 20,
   },
   card1: {

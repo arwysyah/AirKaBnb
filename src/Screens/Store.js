@@ -1,24 +1,16 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-  Badge
-} from 'react-native';
+import {View, Text, Image, StyleSheet,TouchableOpacity,ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import decode from 'jwt-decode';
 import axios from 'axios';
 import {Icon, Button} from 'native-base';
 
-class store extends Component {
+
+class Wishlist extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      store: [],
-      istore:false
+      Wishlist: [],
     };
   }
   async refresh() {
@@ -26,36 +18,31 @@ class store extends Component {
     const user = await decode(userToken);
     const id_user = user.result.id_user;
     axios
-      // .get(`http://192.168.100.155:9000/wishlists/${id_user}`)
-      .get(`http://192.168.6.122:9000/wishlists/${id_user}`)
+      .get(
+        `http://192.168.100.155:9000/wishlists/${id_user}`,
+      )
       .then(result => {
-        console.log('result',result)
         this.setState({
-          store: result.data.response,
-      istore:true
+          Wishlists: result.data.response,
         });
-      });
-  }
+      })
+    }
 
   async componentDidMount() {
     const userToken = await AsyncStorage.getItem('jwt');
     const user = await decode(userToken);
     const id_user = user.result.id_user;
     this.setState({refresh: false});
-    this.setState({
-      istore:true
-    })
 
     axios
       .get(`http://192.168.100.155:9000/wishlists/${id_user}`)
       .then(result => {
-        console.log(result, 'res');
+        // console.log(result, 'res');
         this.setState({
-          store: result.data.response,
-       
+          Wishlist: result.data.response,
         });
         console.log('result data', result.data.response);
-        console.log('object', this.state.store);
+        console.log('object', this.state.Wishlist);
       })
       .catch(err => {
         console.log(err);
@@ -109,86 +96,96 @@ class store extends Component {
     }
   };
   render() {
-    const istore=this.state.istore
-    console.log(this.state.store.borrow_at);
+    console.log(this.state.Wishlist.borrow_at)
     return (
-      
-
-
-
-      <View>
-      
-        <View style={{backgroundColor: '#FF5A5F'}}>
+      <View style={{backgroundColor:'black'}}>
+        <View style={{backgroundColor:'black'}}>
           <Button
             transparent
             onPress={() => {
               this.props.navigation.goBack();
             }}>
-            <Icon style={{color: 'black'}} name="arrow-back" />
+            <Icon style={{color: 'white'}} name="arrow-back" />
             <Text
               style={{
-                color: 'black',
+                color: 'white',
                 fontSize: 23,
                 alignContent: 'center',
                 left: -140,
                 fontWeight: 'bold',
               }}>
-              Saved
+              Wishlists
             </Text>
           </Button>
         </View>
 
-        <ScrollView>
-          <TouchableOpacity onPress={() => this.refresh()}>
-            <Button
-              transparent
-              onPress={() => this.refresh()}
-              style={{height: 30}}>
-              <Icon style={{color: 'black', right: -170}} name="refresh" />
-            </Button>
-          </TouchableOpacity>
-          {istore == true ? 
-          <View>
-            {this.state.store.map((store, index) => (
-              <View key={index}>
-                <View>
+        <ScrollView style={{backgroundColor:"black"}}>
+          
+           <TouchableOpacity onPress={() => this.refresh()}>
+              <Button
+                transparent
+                onPress={() => this.refresh()}
+                style={{height: 30}}>
+                <Icon style={{color: 'white',right:-170}} name="refresh" />
+              </Button>
+            </TouchableOpacity>
+          <View style={{  backgroundColor: 'black',
+                 color: '#ccc',flex:1}}>
+            <View
+              style={{
+                backgroundColor: 'grey',
+                height: 150,
+                justifyContent: 'center',
+              }}>
+              <Image
+                style={{height: 150, width: 400}}
+                source={require('../Assets/dark.jpg')}
+              />
+            </View>
+            {this.state.Wishlist.map((Wishlist, index) => (
+              <View style={{flex: 1}} key={index}>
+                <View style={{height: 200}}>
                   <View
                     style={{
                       top: 20,
-                      height: 250,
-
+                      height: 185,
                       width: 200,
                       borderRadius: 15,
 
+                      flexDirection: 'row',
                       marginHorizontal: 40,
                     }}>
                     <Image
-                      style={{height: 150, width: 230, borderRadius: 5}}
-                      source={{uri: store.image_url}}
+                      style={{height: 130, width: 90, borderRadius: 15}}
+                      source={{uri: Wishlist.image_url}}
                     />
-                   
-                      <Text style={{fontSize:20,color:'brown'}}>{store.name}</Text>
-                   
-                    
-
-                    <Text>{store.location}</Text>
-                    <Text style={{fontSize: 16}}>{store.room_type}</Text>
+                    <View
+                      style={{top: 20, paddingLeft: 10, alignItems: 'center'}}>
+                      <Text style={{fontSize: 30}}>
+                        {this.dateFormat(Wishlist.borrow_at)}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 20,
+                          fontWeight: 'bold',
+                          alignItems: 'center',
+                          color:'white',
+                          left:40
+                        }}>
+                        {Wishlist.tittle}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
             ))}
           </View>
-          : 
-            <Text>
-              hello world
-            </Text>
-          }
         </ScrollView>
       </View>
     );
   }
 }
-export default store;
+export default Wishlist;
 
 const styles = StyleSheet.create({
   button: {
