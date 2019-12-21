@@ -49,7 +49,7 @@ async componentDidMount(){
       email:profile.result.email,
       address:profile.result.address
     })
-    // console.log(username)
+   
 }
 
 

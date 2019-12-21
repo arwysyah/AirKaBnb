@@ -116,7 +116,7 @@ console.log('form',formData)
                   borderWidth: 1,
                   borderRadius: 10,
 
-                  height: 30,
+                  height: 40,
                   width: 284,
                 }}
               />
@@ -134,7 +134,7 @@ console.log('form',formData)
                   borderWidth: 1,
                   borderRadius: 10,
 
-                  height: 30,
+                  height: 40,
                   width: 284,
                 }}
               />

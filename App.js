@@ -22,6 +22,7 @@ import AllStay from './src/Screens/AllStay'
 import Search from './src/Screens/search'
 import Wishlist from './src/Screens/Store'
 import Information from './src/Screens/information'
+// import Payment from './src/Screens/Payment'
 
 const UserNavigator = createStackNavigator({
   Login: {
@@ -67,6 +68,12 @@ const AppNavigator= createStackNavigator({
         header:null
       }
   },
+  // Payment:{
+  //   screen:Payment,
+  //   navigationOptions:{
+  //     header:null
+  // }
+  // },
   AllStay:{
     screen:AllStay,
     navigationOptions:{

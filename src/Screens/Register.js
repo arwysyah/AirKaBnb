@@ -104,7 +104,7 @@ class Register extends Component {
                   borderWidth: 1,
                   borderRadius: 10,
 
-                  height: 30, 
+                  height: 50, 
                   width: 284,
                 }}
               />
@@ -119,7 +119,7 @@ class Register extends Component {
                   borderWidth: 1,
                   borderRadius: 10,
 
-                  height: 30,
+                  height: 50,
                   width: 284,
                 }}
               />
@@ -138,7 +138,7 @@ class Register extends Component {
                   borderWidth: 1,
                   borderRadius: 10,
 
-                  height: 30,
+                  height: 50,
                   width: 284,
                 }}
               />
@@ -156,7 +156,7 @@ class Register extends Component {
                   borderWidth: 1,
                   borderRadius: 10,
 
-                  height: 30,
+                  height: 50,
                   width: 284,
                 }}
               />

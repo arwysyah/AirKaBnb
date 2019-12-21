@@ -65,7 +65,7 @@ export default class Search extends Component {
               <Item
                 rounded
                 style={{
-                  height: 30,
+                  height: 40,
                   width: 210,
                   backgroundColor: 'white',
                   left:-10

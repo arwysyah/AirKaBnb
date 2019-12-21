@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import RazorpayCheckout from 'react-native-razorpay';
 import {Icon, Button} from 'native-base';
 import {
   View,
@@ -40,9 +41,9 @@ class DetailStay extends Component {
     });
   }
 
-handlebooking=()=>{
+handleStore=()=>{
   const stays = this.props.navigation.getParam('st');
-  Alert.alert('Confirm Booking', 'Do You Like This Place?', [
+  Alert.alert('Confirm Store', 'Do You Like This Place?', [
     {
       text: 'Cancel',
       onPress: () => console.log('cancel'),
@@ -75,10 +76,10 @@ handlebooking=()=>{
           // console.log('tipe', typeof formData);
           await Axios
           // .post('http://192.168.100.155:9000/wishlist', formData);
-          .post('http://192.168.6.122:9000/booking', formData);
+          .post('http://192.168.6.122:9000/wishlist', formData);
           console.log(formData,'fo')
           console.log('succes');
-          ToastAndroid.show('Booking Successfuly', ToastAndroid.SHORT);
+          ToastAndroid.show('Store Successfuly', ToastAndroid.SHORT);
           // await this.props.dispatch(addBorrow(userId, userToken, formData))
           // this.checkBorrowed()
         } catch (error) {
@@ -90,58 +91,120 @@ handlebooking=()=>{
   ]);
 
 }
+handlePay= async()=>{ 
+   
+  var options = {
+    description: 'Credits towards consultation',
+    image: 'https://i.imgur.com/3g7nmJC.png',
+    currency: 'INR',
+    key: 'rzp_test_1DP5mmOlF5G5ag',
+    amount: '500000000',
+    name: 'kenzo',
+    prefill: {
+      email: 'kenzoymc@razorpay.com',
+      contact: '9191919191',
+      name: 'Razorpay Software',
+    },
+    theme: {color: '#F37254'},
+  };
+  await RazorpayCheckout.open(options)
+    .then(data => {
+      // handle success
+      alert(`Success: ${data.razorpay_payment_id}`);
+    })
+   .then( async()=>{
+    let data =await  AsyncStorage.getItem('jwt');
+    console.log(decode(data));
+    const profile = decode(data); 
+    console.log(profile,'profile') 
+    const id_user= profile.result.id_user
+    console.log('user id', profile.result.id_user);
+    // console.log('resu',user.result) //ini penting
+    const detail = this.props.navigation.getParam('st');
+    const id_room = detail.id_room;
+ 
+    // console.log('data',data.id,idBook) //navigator
+    let formData = {
+      id_user: profile.result.id_user,
+      id_room: id_room,
+    };
+    console.log('user',profile.result.id_user)
+    console.log('id room',detail.id_room)
+    console.log('form',formData)
+    console.log(id_user,id_room, 'data')
+    // console.log('tipe', typeof formData);
+   await Axios
+    // .post('http://192.168.100.155:9000/wishlist', formData);
+    .post('http://192.168.6.122:9000/booking', formData);
+    console.log(formData,'fo')
+    console.log('succes');
+    ToastAndroid.show('Booking Successfuly', ToastAndroid.SHORT);
+      // await this.props.dispatch(addBorrow(userId, userToken, formData))
+      // this.checkBorrowed()
+    })
+    //  .catch(error => {
+    //   // handle failure
+    //   alert(`Error: ${error.code} | ${error.description}`);
+    // })
+}
 
-
-  handleStore(){
-    Alert.alert('Confirm Store', 'Do You Like This Place?', [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('cancel'),
-        style: 'cancel',
-      },
-      {
-        text: 'Yes',
-        onPress: async () => {
-          try {
-            let data = await AsyncStorage.getItem('jwt');
-            console.log(decode(data));
-            const profile = decode(data); 
-            console.log(profile,'profile') 
-            const id_user= profile.result.id_user
-            console.log('user id', profile.result.id_user);
-            // console.log('resu',user.result) //ini penting
-            const detail = this.props.navigation.getParam('st');
-            const id_room = detail.id_room;
+  // handleStore (){
+  //   const stays = this.props.navigation.getParam('st');
+  //   console.log('user',profile.result.id_user)
+  //   console.log('id room',detail.id_room)
+  //   console.log('form',formData)
+  //   console.log(id_user,id_room, 'data')
+  //   Alert.alert('Confirm Store', 'Do You Like This Place?', [
+  //     {
+  //       text: 'Cancel',
+  //       onPress: () => console.log('cancel'),
+  //       style: 'cancel',
+  //     },
+  //     {
+  //       text: 'Yes',
+  //       onPress: async () => {
+  //         try {
+  //           let data = await  AsyncStorage.getItem('jwt');
+  //           console.log(decode(data));
+  //           const profile = decode(data); 
+  //           console.log(profile,'profile') 
+  //           const id_user= profile.result.id_user
+  //           console.log('user id', profile.result.id_user);
+  //           // console.log('resu',user.result) //ini penting
+  //           const detail = this.props.navigation.getParam('st');
+  //           const id_room = detail.id_room;
          
-            // console.log('data',data.id,idBook) //navigator
-            let formData = {
-              id_user: profile.result.id_user,
-              id_room: id_room,
-            };
-            console.log('user',profile.result.id_user)
-            console.log('id room',detail.id_room)
-            console.log('form',formData)
-            console.log(id_user,id_room, 'data')
-            // console.log('tipe', typeof formData);
-            await Axios
-            // .post('http://192.168.100.155:9000/wishlist', formData);
-            .post('http://192.168.6.122:9000/wishlist', formData);
-            console.log(formData,'fo')
-            console.log('succes');
-            ToastAndroid.show('it saved in you store', ToastAndroid.SHORT);
-            // await this.props.dispatch(addBorrow(userId, userToken, formData))
-            // this.checkBorrowed()
-          } catch (error) {
-            console.log('error', error);
-          }
-        },
-        style: 'default',
-      },
-    ]);
+  //           // console.log('data',data.id,idBook) //navigator
+  //           let formData = {
+  //             id_user: profile.result.id_user,
+  //             id_room: id_room,
+  //           };
+  //           console.log('user',profile.result.id_user)
+  //           console.log('id room',detail.id_room)
+  //           console.log('form',formData)
+  //           console.log(id_user,id_room, 'data')
+            
+  //           // console.log('tipe', typeof formData);
+  //           await Axios
+  //           // .post('http://192.168.100.155:9000/wishlist', formData);
+  //           .post('http://192.168.6.122:9000/wishlist', formData);
+  //           console.log(formData,'fo')
+  //           console.log('succes');
+  //           ToastAndroid.show('it saved in you store', ToastAndroid.LONG);
+  //           // await this.props.dispatch(addBorrow(userId, userToken, formData))
+  //           // this.checkBorrowed()
+  //         } catch (error) {
+  //           console.log('error', error);
+  //         }
+  //       },
+  //       style: 'default',
+  //     },
+  //   ]);
   
-  }
+  // }
+  
   render() {
-    const stays = this.props.navigation.getParam('st');
+    const stays = this.props.navigation.getParam('st')
 
     return (
       <View>
@@ -196,7 +259,7 @@ handlebooking=()=>{
                   style={styles.OwnerImage}
                 />
               </View>
-              <View style={{height: 500}}>
+              <View style={{height: 600}}>
                 <View style={{flexDirection: 'row'}}>
                   <Iconz style={{color: 'black'}} name="home" size={23} />
                   <Text style={{left: 20, top: 3, fontWeight: 'bold'}}>
@@ -229,8 +292,14 @@ handlebooking=()=>{
                   <Text>{stays.description}</Text>
                 </View>
               </View>
-              <TouchableOpacity style={styles.button4} onPress={()=>{this.handlebooking()}}>
-        <Text>Pesan</Text>
+              <TouchableOpacity style={styles.button4}  onPress={() => {
+                this.handlePay()
+          
+          }}>
+               
+
+                
+        <Text>Booking</Text>
       </TouchableOpacity>
             </View>
           </View>

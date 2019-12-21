@@ -245,7 +245,7 @@ class Explore extends Component {
                   </View>
                 </ScrollView>
 
-                <View style={{marginLeft: 7, top: 41, height: 40, width: 240}}>
+                <View style={{marginLeft: 7, top: 15, height: 40, width: 240}}>
                   <Text style={styles.textTitle}>
                     Pengalaman Yang Dinilai Tinggi
                   </Text>
